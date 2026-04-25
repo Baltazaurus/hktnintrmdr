@@ -19,7 +19,7 @@ export default function MapPage() {
         <h1 className="font-display text-2xl font-bold text-gray-900 dark:text-gray-100">{t('map.title')}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400">{t('map.sub')}</p>
       </div>
-      <div className="h-[calc(100vh-14rem)] md:h-[calc(100vh-12rem)]">
+      <div className="h-[calc(100dvh-16rem)] md:h-[calc(100vh-12rem)]">
         <MapView />
       </div>
     </div>

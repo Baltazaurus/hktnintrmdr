@@ -44,13 +44,30 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="px-4 md:px-10 py-6 max-w-5xl mx-auto">
+    <div className="px-3 sm:px-4 md:px-10 py-4 md:py-6 max-w-5xl mx-auto">
       <div className="mb-6">
-        <h1 className="font-display text-3xl font-bold text-gray-900 dark:text-gray-100">Settings</h1>
+        <h1 className="font-display text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">Settings</h1>
         <p className="text-gray-500 dark:text-gray-400 text-sm">Manage your account, preferences, and subscription.</p>
       </div>
 
-      <div className="grid md:grid-cols-[220px,1fr] gap-6">
+      <div className="md:hidden space-y-3">
+        <Card title="Quick actions">
+          <button
+            onClick={() => { logout(); router.push('/'); }}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900/40 bg-red-50 dark:bg-red-900/20"
+          >
+            <LogOut className="w-4 h-4" /> Logout
+          </button>
+        </Card>
+
+        <AccountSection />
+        <PreferencesSection />
+        <NotificationsSection />
+        <PrivacySection />
+        <PlanSection />
+      </div>
+
+      <div className="hidden md:grid md:grid-cols-[220px,1fr] gap-6">
         {/* === SIDEBAR (mobile: horizontal scroll, desktop: vertical) === */}
         <nav className="md:sticky md:top-24 md:self-start">
           <div className="flex md:flex-col gap-1 overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0 pb-2 md:pb-0">
@@ -302,7 +319,7 @@ function PlanSection() {
 /* ========== Reusable atoms ========== */
 function Card({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
   return (
-    <section className="bg-white/70 dark:bg-[#1f2937] backdrop-blur-sm rounded-2xl p-5 shadow-soft
+    <section className="bg-white/70 dark:bg-[#1f2937] backdrop-blur-sm rounded-2xl p-4 md:p-5 shadow-soft
                         border border-grass/25 dark:border-[#374151]">
       <h3 className="font-display font-bold text-gray-900 dark:text-gray-100 text-sm tracking-tight">{title}</h3>
       {subtitle && <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">{subtitle}</p>}
@@ -314,7 +331,7 @@ function Card({ title, subtitle, children }: { title: string; subtitle?: string;
 function Row({ icon, label, action, onClick }:
   { icon: React.ReactNode; label: string; action: string; onClick: () => void }) {
   return (
-    <div className="flex items-center justify-between bg-white/60 dark:bg-[#374151] rounded-xl px-4 py-3
+    <div className="flex items-center justify-between bg-white/60 dark:bg-[#374151] rounded-xl px-3 md:px-4 py-3
                     border border-grass/20 dark:border-[#4b5563]">
       <div className="flex items-center gap-2 text-sm text-gray-800 dark:text-gray-200 min-w-0">
         <span className="text-gray-400 flex-shrink-0">{icon}</span>
@@ -330,9 +347,9 @@ function Row({ icon, label, action, onClick }:
 function Toggle({ label, on, onChange }: { label: string; on: boolean; onChange: (v: boolean) => void }) {
   return (
     <button onClick={() => onChange(!on)}
-      className="w-full flex items-center justify-between bg-white/60 dark:bg-[#374151] rounded-xl px-4 py-3
+      className="w-full flex items-center justify-between gap-3 bg-white/60 dark:bg-[#374151] rounded-xl px-3 md:px-4 py-3
                  hover:bg-white/90 dark:hover:bg-[#4b5563] transition border border-grass/20 dark:border-[#4b5563]">
-      <span className="text-sm text-gray-800 dark:text-gray-200 text-left">{label}</span>
+      <span className="text-sm text-gray-800 dark:text-gray-200 text-left leading-snug">{label}</span>
       <div className={clsx(
         'w-11 h-6 rounded-full transition-colors relative flex-shrink-0',
         on ? 'bg-dusk' : 'bg-gray-300 dark:bg-gray-600'

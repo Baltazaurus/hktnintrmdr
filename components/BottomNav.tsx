@@ -70,7 +70,7 @@ export default function BottomNav({ variant }: { variant: Variant }) {
 
   // Mobile bottom nav - Premium mobile UI
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 pb-safe
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[2200] pb-safe
                     bg-white/90 dark:bg-[#1f2937]/95
                     backdrop-blur-xl border-t border-grass/20 dark:border-[#374151]
                     shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
