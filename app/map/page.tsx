@@ -14,12 +14,14 @@ const MapView = dynamic(() => import('@/components/MapView'), {
 export default function MapPage() {
   const t = useT();
   return (
-    <div className="px-0 md:px-6 py-0 md:py-4">
+    <div className="px-0 md:px-6 py-0 md:py-4 pb-4">
       <div className="px-4 md:px-0 mb-3">
         <h1 className="font-display text-2xl font-bold text-gray-900 dark:text-gray-100">{t('map.title')}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400">{t('map.sub')}</p>
       </div>
-      <MapView />
+      <div className="h-[calc(100vh-14rem)] md:h-[calc(100vh-12rem)]">
+        <MapView />
+      </div>
     </div>
   );
 }

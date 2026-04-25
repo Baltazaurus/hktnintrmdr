@@ -142,27 +142,29 @@ export default function MapView() {
   const [activeSource, setActiveSource] = useState<MapSource>(MAP_SOURCES[0]);
 
   return (
-    <div className="relative h-[calc(100vh-12rem)] md:rounded-3xl overflow-hidden md:shadow-soft">
+    <div className="relative h-full md:rounded-3xl overflow-hidden md:shadow-soft">
 
       {/* Source toggle button */}
       <button
         onClick={() => setPanelOpen(o => !o)}
-        className="absolute top-3 right-3 z-[1000] flex items-center gap-2
+        className="absolute top-3 right-3 z-[500] flex items-center gap-2
                    bg-white/95 backdrop-blur-sm px-3 py-2 rounded-xl shadow-soft
                    text-sm font-semibold text-gray-700 border border-grass/30
                    hover:bg-white transition"
       >
         <Layers className="w-4 h-4 text-dusk" />
-        <span>{activeSource.name}</span>
+        <span className="hidden sm:inline">{activeSource.name}</span>
         <span className="w-2 h-2 rounded-full ml-1" style={{ background: activeSource.color }} />
       </button>
 
-      {/* Source selector panel */}
+      {/* Source selector panel - on mobile, slides up from bottom; on desktop, slides from right */}
       {panelOpen && (
-        <div className="absolute top-0 right-0 bottom-0 z-[1001] w-80
+        <div className="absolute md:top-0 md:right-0 md:bottom-0 z-[501] w-full md:w-80
                         bg-white/98 backdrop-blur-md shadow-2xl
-                        border-l border-grass/20 overflow-y-auto
-                        animate-[slideInRight_0.2s_ease-out]">
+                        md:border-l border-t border-grass/20 overflow-y-auto
+                        md:animate-[slideInRight_0.2s_ease-out]
+                        bottom-20 md:bottom-auto rounded-t-3xl md:rounded-none
+                        animate-[slideUp_0.2s_ease-out] max-h-[70vh] md:max-h-none">
           <div className="sticky top-0 bg-white/95 backdrop-blur-sm px-4 py-3
                           border-b border-grass/20 flex items-center justify-between">
             <div>
@@ -306,7 +308,7 @@ export default function MapView() {
 function PointDetailSheet({ point, onClose }: { point: PollutionPoint; onClose: () => void }) {
   const Source = SOURCE_META[point.source];
   return (
-    <div className="absolute inset-x-0 bottom-0 z-[1000] bg-white rounded-t-3xl shadow-2xl
+    <div className="absolute inset-x-0 bottom-20 md:bottom-0 z-[400] bg-white rounded-t-3xl shadow-2xl
                     p-5 pb-safe animate-[slideUp_0.25s_ease-out] max-h-[60%] overflow-auto">
       <div className="flex items-start justify-between mb-3">
         <div>

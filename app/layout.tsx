@@ -18,14 +18,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AuthProvider>
           {/* Applies theme class + lang attr to <html> based on user prefs */}
           <ThemeApplicator />
-          <div className="md:flex md:min-h-screen">
-            <BottomNav variant="sidebar" />
-            <div className="flex-1 flex flex-col min-h-screen md:ml-64">
+          <div className="flex flex-col md:flex-row min-h-screen">
+            {/* Sidebar - hidden on mobile, fixed on desktop */}
+            <div className="hidden md:block">
+              <BottomNav variant="sidebar" />
+            </div>
+            {/* Main content area */}
+            <div className="flex-1 flex flex-col min-h-screen">
               <Header />
               <main className="flex-1 pb-28 md:pb-8 pt-safe">{children}</main>
             </div>
           </div>
-          <BottomNav variant="bottom" />
+          {/* Bottom nav - visible only on mobile */}
+          <div className="md:hidden">
+            <BottomNav variant="bottom" />
+          </div>
         </AuthProvider>
       </body>
     </html>
