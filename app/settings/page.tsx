@@ -46,8 +46,8 @@ export default function SettingsPage() {
   return (
     <div className="px-4 md:px-10 py-6 max-w-5xl mx-auto">
       <div className="mb-6">
-        <h1 className="font-display text-3xl font-bold text-dusk-dark">Settings</h1>
-        <p className="text-dusk/70 text-sm">Manage your account, preferences, and subscription.</p>
+        <h1 className="font-display text-3xl font-bold text-gray-900 dark:text-gray-100">Settings</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm">Manage your account, preferences, and subscription.</p>
       </div>
 
       <div className="grid md:grid-cols-[220px,1fr] gap-6">
@@ -57,16 +57,16 @@ export default function SettingsPage() {
             {SECTIONS.map(({ id, label, icon: Icon }) => (
               <button key={id} onClick={() => setSection(id)}
                 className={clsx(
-                  'flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold whitespace-nowrap transition flex-shrink-0',
+                  'flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition flex-shrink-0',
                   section === id
-                    ? 'bg-dusk text-sand-light shadow-soft'
-                    : 'bg-white/60 text-dusk-dark hover:bg-grass/30 md:bg-transparent'
+                    ? 'bg-dusk text-white shadow-soft'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-grass/20 dark:hover:bg-[#374151] hover:text-gray-900 dark:hover:text-gray-100 md:bg-transparent'
                 )}>
                 <Icon className="w-4 h-4" /> {label}
               </button>
             ))}
             <button onClick={() => { logout(); router.push('/'); }}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold text-red-700 hover:bg-red-50 transition mt-2 md:mt-4">
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition mt-2 md:mt-4">
               <LogOut className="w-4 h-4" /> Logout
             </button>
           </div>
@@ -158,12 +158,15 @@ function PreferencesSection() {
             </button>
           ))}
         </div>
-        <p className="text-[11px] text-dusk/60 mt-2">🧪 Theme switching wired up — full dark mode is coming in the alt build.</p>
+        <p className="text-[11px] text-dusk/50 dark:text-sand/40 mt-2">Changes take effect immediately across the entire app.</p>
       </Card>
 
       <Card title="Language">
         <select value={p.language} onChange={e => updatePrefs({ language: e.target.value as typeof p.language })}
-          className="w-full bg-white rounded-xl px-3 py-3 text-sm outline-none border border-grass/40 focus:border-water-dark">
+          className="w-full bg-white dark:bg-[#374151] text-gray-900 dark:text-gray-100
+                     rounded-xl px-3 py-3 text-sm outline-none
+                     border border-grass/40 dark:border-[#4b5563]
+                     focus:border-dusk dark:focus:border-dusk-light transition">
           <option value="ro">🇷🇴 Română</option>
           <option value="en">🇬🇧 English</option>
           <option value="hu">🇭🇺 Magyar</option>
@@ -299,9 +302,10 @@ function PlanSection() {
 /* ========== Reusable atoms ========== */
 function Card({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
   return (
-    <section className="card-eco">
-      <h3 className="font-display font-bold text-dusk-dark">{title}</h3>
-      {subtitle && <p className="text-xs text-dusk/70 mb-3">{subtitle}</p>}
+    <section className="bg-white/70 dark:bg-[#1f2937] backdrop-blur-sm rounded-2xl p-5 shadow-soft
+                        border border-grass/25 dark:border-[#374151]">
+      <h3 className="font-display font-bold text-gray-900 dark:text-gray-100 text-sm tracking-tight">{title}</h3>
+      {subtitle && <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">{subtitle}</p>}
       <div className={subtitle ? '' : 'mt-3'}>{children}</div>
     </section>
   );
@@ -310,12 +314,13 @@ function Card({ title, subtitle, children }: { title: string; subtitle?: string;
 function Row({ icon, label, action, onClick }:
   { icon: React.ReactNode; label: string; action: string; onClick: () => void }) {
   return (
-    <div className="flex items-center justify-between bg-white/70 rounded-xl px-4 py-3">
-      <div className="flex items-center gap-2 text-sm text-dusk-dark min-w-0">
-        <span className="text-dusk/70 flex-shrink-0">{icon}</span>
+    <div className="flex items-center justify-between bg-white/60 dark:bg-[#374151] rounded-xl px-4 py-3
+                    border border-grass/20 dark:border-[#4b5563]">
+      <div className="flex items-center gap-2 text-sm text-gray-800 dark:text-gray-200 min-w-0">
+        <span className="text-gray-400 flex-shrink-0">{icon}</span>
         <span className="truncate">{label}</span>
       </div>
-      <button onClick={onClick} className="text-sm font-semibold text-water-dark hover:underline flex-shrink-0 ml-2">
+      <button onClick={onClick} className="text-sm font-semibold text-dusk hover:text-dusk-dark dark:text-dusk-light dark:hover:text-white transition flex-shrink-0 ml-2">
         {action}
       </button>
     </div>
@@ -325,14 +330,15 @@ function Row({ icon, label, action, onClick }:
 function Toggle({ label, on, onChange }: { label: string; on: boolean; onChange: (v: boolean) => void }) {
   return (
     <button onClick={() => onChange(!on)}
-      className="w-full flex items-center justify-between bg-white/70 rounded-xl px-4 py-3 hover:bg-white transition">
-      <span className="text-sm text-dusk-dark text-left">{label}</span>
+      className="w-full flex items-center justify-between bg-white/60 dark:bg-[#374151] rounded-xl px-4 py-3
+                 hover:bg-white/90 dark:hover:bg-[#4b5563] transition border border-grass/20 dark:border-[#4b5563]">
+      <span className="text-sm text-gray-800 dark:text-gray-200 text-left">{label}</span>
       <div className={clsx(
-        'w-11 h-6 rounded-full transition relative flex-shrink-0',
-        on ? 'bg-water-dark' : 'bg-grass/60'
+        'w-11 h-6 rounded-full transition-colors relative flex-shrink-0',
+        on ? 'bg-dusk' : 'bg-gray-300 dark:bg-gray-600'
       )}>
         <div className={clsx(
-          'w-5 h-5 rounded-full bg-white absolute top-0.5 transition shadow-soft',
+          'w-5 h-5 rounded-full bg-white absolute top-0.5 transition-all shadow-soft',
           on ? 'left-[22px]' : 'left-0.5'
         )} />
       </div>

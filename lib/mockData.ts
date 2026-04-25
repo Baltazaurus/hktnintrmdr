@@ -61,6 +61,127 @@ export const POLLUTION_POINTS: PollutionPoint[] = [
     reportedAt: '2026-04-24T15:22:00Z',
     notes: 'Sentinel-2 detected color anomaly + Sentinel-3 thermal spike.',
   },
+  // Additional pollution points along the Danube
+  {
+    id: 'p-005',
+    coords: [44.9517, 20.2564], // Belgrade area
+    name: 'Belgrade industrial zone',
+    source: 'citizen',
+    severity: 'high',
+    metrics: { chlorophyll_mg_m3: 42.3, nitrates_mg_l: 14.2, phosphates_mg_l: 2.8, heatAnomaly_C: 2.1 },
+    reportedAt: '2026-04-24T09:45:00Z',
+    notes: 'Multiple citizen reports of foam and unusual odors.',
+  },
+  {
+    id: 'p-006',
+    coords: [45.4392, 21.0572], // Timișoara area
+    name: 'Timiș river confluence',
+    source: 'ngo-sensor',
+    severity: 'moderate',
+    metrics: { chlorophyll_mg_m3: 25.6, nitrates_mg_l: 8.3, phosphates_mg_l: 1.4, heatAnomaly_C: 0.9 },
+    reportedAt: '2026-04-23T14:20:00Z',
+    notes: 'Elevated nitrates from agricultural runoff.',
+  },
+  {
+    id: 'p-007',
+    coords: [44.3181, 24.2711], // Craiova area
+    name: 'Olt river discharge',
+    source: 'satellite',
+    severity: 'high',
+    metrics: { chlorophyll_mg_m3: 35.8, nitrates_mg_l: 11.6, phosphates_mg_l: 2.3, heatAnomaly_C: 1.7 },
+    reportedAt: '2026-04-22T10:30:00Z',
+    notes: 'Agricultural fertilizer runoff detected.',
+  },
+  {
+    id: 'p-008',
+    coords: [45.6644, 25.7889], // Brașov area
+    name: 'Olt river - upstream Brașov',
+    source: 'ngo-sensor',
+    severity: 'low',
+    metrics: { chlorophyll_mg_m3: 9.2, nitrates_mg_l: 2.8, phosphates_mg_l: 0.4, heatAnomaly_C: 0.1 },
+    reportedAt: '2026-04-24T06:15:00Z',
+    notes: 'Clean readings - mountain water source.',
+  },
+  {
+    id: 'p-009',
+    coords: [44.5672, 27.8522], // Constanța area
+    name: 'Black Sea coast outlet',
+    source: 'satellite',
+    severity: 'moderate',
+    metrics: { chlorophyll_mg_m3: 28.4, nitrates_mg_l: 7.1, phosphates_mg_l: 1.2, heatAnomaly_C: 0.8 },
+    reportedAt: '2026-04-23T16:40:00Z',
+    notes: 'Delta nutrient discharge - seasonal pattern.',
+  },
+  {
+    id: 'p-010',
+    coords: [46.0625, 21.9189], // Arad area
+    name: 'Mureș river confluence',
+    source: 'citizen',
+    severity: 'moderate',
+    metrics: { chlorophyll_mg_m3: 19.8, nitrates_mg_l: 5.9, phosphates_mg_l: 0.9, heatAnomaly_C: 0.5 },
+    reportedAt: '2026-04-22T11:25:00Z',
+    notes: 'Local reports of slight discoloration.',
+  },
+  {
+    id: 'p-011',
+    coords: [45.1028, 24.3692], // Sibiu area
+    name: 'Lotru river discharge',
+    source: 'ngo-sensor',
+    severity: 'low',
+    metrics: { chlorophyll_mg_m3: 7.6, nitrates_mg_l: 1.9, phosphates_mg_l: 0.2, heatAnomaly_C: 0.1 },
+    reportedAt: '2026-04-24T08:00:00Z',
+    notes: 'Mountain tributary - clean water.',
+  },
+  {
+    id: 'p-012',
+    coords: [44.2128, 28.4217], // Dobrogea area
+    name: 'Casian lake outlet',
+    source: 'satellite',
+    severity: 'high',
+    metrics: { chlorophyll_mg_m3: 39.5, nitrates_mg_l: 13.8, phosphates_mg_l: 2.5, heatAnomaly_C: 1.9 },
+    reportedAt: '2026-04-21T13:10:00Z',
+    notes: 'Eutrophication detected via satellite.',
+  },
+  {
+    id: 'p-013',
+    coords: [45.8122, 20.4611], // Jimbolia area
+    name: 'Bega river canal',
+    source: 'citizen',
+    severity: 'moderate',
+    metrics: { chlorophyll_mg_m3: 21.3, nitrates_mg_l: 6.2, phosphates_mg_l: 1.1, heatAnomaly_C: 0.7 },
+    reportedAt: '2026-04-23T10:50:00Z',
+    notes: 'Industrial canal discharge.',
+  },
+  {
+    id: 'p-014',
+    coords: [44.8894, 23.2717], // Drobeta-Turnu Severin
+    name: 'Severin marsh area',
+    source: 'satellite',
+    severity: 'critical',
+    metrics: { chlorophyll_mg_m3: 48.9, nitrates_mg_l: 16.4, phosphates_mg_l: 3.1, heatAnomaly_C: 2.8 },
+    reportedAt: '2026-04-22T14:35:00Z',
+    notes: 'Heavy industrial pollution - urgent attention needed.',
+  },
+  {
+    id: 'p-015',
+    coords: [45.4894, 27.9183], // Galați area
+    name: 'Siret river confluence',
+    source: 'ngo-sensor',
+    severity: 'moderate',
+    metrics: { chlorophyll_mg_m3: 23.7, nitrates_mg_l: 7.4, phosphates_mg_l: 1.3, heatAnomaly_C: 0.8 },
+    reportedAt: '2026-04-24T07:45:00Z',
+    notes: 'Agricultural area - moderate readings.',
+  },
+  {
+    id: 'p-016',
+    coords: [44.6517, 21.7139], // Kladovo area
+    name: 'Kladovo industrial port',
+    source: 'citizen',
+    severity: 'high',
+    metrics: { chlorophyll_mg_m3: 36.2, nitrates_mg_l: 12.1, phosphates_mg_l: 2.4, heatAnomaly_C: 1.6 },
+    reportedAt: '2026-04-23T12:20:00Z',
+    notes: 'Port activity and industrial discharge.',
+  },
 ];
 
 export interface NGO {
