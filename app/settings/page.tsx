@@ -10,20 +10,22 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { useAuth } from '@/lib/authStore';
 import PlanToggle from '@/components/PlanToggle';
+import { useT } from '@/lib/useT';
 
 type Section = 'account' | 'preferences' | 'notifications' | 'privacy' | 'plan';
 
-const SECTIONS: { id: Section; label: string; icon: React.ElementType }[] = [
-  { id: 'account',       label: 'Account',       icon: UserIcon },
-  { id: 'preferences',   label: 'Preferences',   icon: Globe },
-  { id: 'notifications', label: 'Notifications', icon: Bell },
-  { id: 'privacy',       label: 'Privacy & Data',icon: Shield },
-  { id: 'plan',          label: 'Plan & Billing',icon: Crown },
+const SECTIONS: { id: Section; labelKey: string; icon: React.ElementType }[] = [
+  { id: 'account',       labelKey: 'settings.section.account',       icon: UserIcon },
+  { id: 'preferences',   labelKey: 'settings.section.preferences',   icon: Globe },
+  { id: 'notifications', labelKey: 'settings.section.notifications', icon: Bell },
+  { id: 'privacy',       labelKey: 'settings.section.privacy',       icon: Shield },
+  { id: 'plan',          labelKey: 'settings.section.plan',          icon: Crown },
 ];
 
 export default function SettingsPage() {
   const { user, loading, logout } = useAuth();
   const router = useRouter();
+  const t = useT();
   const [section, setSection] = useState<Section>('account');
 
   if (loading) {
@@ -38,7 +40,7 @@ export default function SettingsPage() {
           <LogIn className="w-10 h-10 text-dusk-dark" />
         </div>
         <h1 className="font-display text-2xl font-bold text-dusk-dark mb-2">Sign in to manage settings</h1>
-        <Link href="/login" className="btn-primary inline-block">Login</Link>
+        <Link href="/login" className="btn-primary inline-block">{t('common.login')}</Link>
       </div>
     );
   }
@@ -46,17 +48,17 @@ export default function SettingsPage() {
   return (
     <div className="px-3 sm:px-4 md:px-10 py-4 md:py-6 max-w-5xl mx-auto">
       <div className="mb-6">
-        <h1 className="font-display text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">Settings</h1>
-        <p className="text-gray-500 dark:text-gray-400 text-sm">Manage your account, preferences, and subscription.</p>
+        <h1 className="font-display text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">{t('settings.title')}</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm">{t('settings.sub')}</p>
       </div>
 
       <div className="md:hidden space-y-3">
-        <Card title="Quick actions">
+        <Card title={t('settings.quickActions')}>
           <button
             onClick={() => { logout(); router.push('/'); }}
             className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900/40 bg-red-50 dark:bg-red-900/20"
           >
-            <LogOut className="w-4 h-4" /> Logout
+            <LogOut className="w-4 h-4" /> {t('common.logout')}
           </button>
         </Card>
 
@@ -71,7 +73,7 @@ export default function SettingsPage() {
         {/* === SIDEBAR (mobile: horizontal scroll, desktop: vertical) === */}
         <nav className="md:sticky md:top-24 md:self-start">
           <div className="flex md:flex-col gap-1 overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0 pb-2 md:pb-0">
-            {SECTIONS.map(({ id, label, icon: Icon }) => (
+            {SECTIONS.map(({ id, labelKey, icon: Icon }) => (
               <button key={id} onClick={() => setSection(id)}
                 className={clsx(
                   'flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition flex-shrink-0',
@@ -79,12 +81,12 @@ export default function SettingsPage() {
                     ? 'bg-dusk text-white shadow-soft'
                     : 'text-gray-600 dark:text-gray-400 hover:bg-grass/20 dark:hover:bg-[#374151] hover:text-gray-900 dark:hover:text-gray-100 md:bg-transparent'
                 )}>
-                <Icon className="w-4 h-4" /> {label}
+                <Icon className="w-4 h-4" /> {t(labelKey)}
               </button>
             ))}
             <button onClick={() => { logout(); router.push('/'); }}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition mt-2 md:mt-4">
-              <LogOut className="w-4 h-4" /> Logout
+              <LogOut className="w-4 h-4" /> {t('common.logout')}
             </button>
           </div>
         </nav>
@@ -105,6 +107,7 @@ export default function SettingsPage() {
 /* ========== ACCOUNT ========== */
 function AccountSection() {
   const { user, updateUser } = useAuth();
+  const t = useT();
   if (!user) return null;
   const [editingEmail, setEditingEmail] = useState(false);
   const [emailDraft, setEmailDraft] = useState(user.email);
@@ -119,11 +122,11 @@ function AccountSection() {
               className="flex-1 bg-white rounded-xl px-3 py-2 text-sm outline-none border border-grass/40 focus:border-water-dark" />
             <button onClick={() => { updateUser({ email: emailDraft }); setEditingEmail(false); }}
               className="bg-water-dark text-white px-3 py-2 rounded-xl text-sm font-bold inline-flex items-center gap-1">
-              <Check className="w-4 h-4" /> Save
+              <Check className="w-4 h-4" /> {t('common.save')}
             </button>
           </div>
         ) : (
-          <Row icon={<Mail className="w-4 h-4" />} label={user.email} action="Change" onClick={() => setEditingEmail(true)} />
+          <Row icon={<Mail className="w-4 h-4" />} label={user.email} action={t('common.change')} onClick={() => setEditingEmail(true)} />
         )}
       </Card>
 
@@ -135,12 +138,12 @@ function AccountSection() {
             <input type="password" placeholder="Confirm new password" className="w-full bg-white rounded-xl px-3 py-2 text-sm outline-none border border-grass/40" />
             <div className="flex gap-2">
               <button onClick={() => { alert('Password updated (mock)'); setPwOpen(false); }}
-                className="bg-dusk text-sand-light px-4 py-2 rounded-xl text-sm font-bold">Update</button>
-              <button onClick={() => setPwOpen(false)} className="bg-white px-4 py-2 rounded-xl text-sm font-bold">Cancel</button>
+                className="bg-dusk text-sand-light px-4 py-2 rounded-xl text-sm font-bold">{t('common.update')}</button>
+              <button onClick={() => setPwOpen(false)} className="bg-white px-4 py-2 rounded-xl text-sm font-bold">{t('common.cancel')}</button>
             </div>
           </div>
         ) : (
-          <Row icon={<KeyRound className="w-4 h-4" />} label="••••••••••" action="Change" onClick={() => setPwOpen(true)} />
+          <Row icon={<KeyRound className="w-4 h-4" />} label="••••••••••" action={t('common.change')} onClick={() => setPwOpen(true)} />
         )}
       </Card>
 
@@ -154,12 +157,13 @@ function AccountSection() {
 /* ========== PREFERENCES ========== */
 function PreferencesSection() {
   const { user, updatePrefs } = useAuth();
+  const t = useT();
   if (!user) return null;
   const p = user.prefs;
 
   return (
     <>
-      <Card title="Theme" subtitle="Choose how DanubeGuard looks.">
+      <Card title={t('common.theme')} subtitle="Choose how DanubeGuard looks.">
         <div className="grid grid-cols-3 gap-2">
           {[
             { v: 'light' as const,  label: 'Light',  icon: <Sun     className="w-4 h-4" /> },
@@ -178,7 +182,7 @@ function PreferencesSection() {
         <p className="text-[11px] text-dusk/50 dark:text-sand/40 mt-2">Changes take effect immediately across the entire app.</p>
       </Card>
 
-      <Card title="Language">
+      <Card title={t('common.language')}>
         <select value={p.language} onChange={e => updatePrefs({ language: e.target.value as typeof p.language })}
           className="w-full bg-white dark:bg-[#374151] text-gray-900 dark:text-gray-100
                      rounded-xl px-3 py-3 text-sm outline-none
@@ -193,7 +197,7 @@ function PreferencesSection() {
         </select>
       </Card>
 
-      <Card title="Units">
+      <Card title={t('common.units')}>
         <div className="grid grid-cols-2 gap-2">
           <button onClick={() => updatePrefs({ units: 'metric' })}
             className={clsx('p-3 rounded-xl border-2 text-sm font-semibold transition',
